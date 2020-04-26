@@ -68,12 +68,15 @@ class Three extends Component {
       let centerDistY = centerY - e.clientY;
       onMouseMove(centerDistX, centerDistY);
     };
-    const onPhoneMotion = ({ acceleration }) => {
-      let x = acceleration[0];
-      let y = acceleration[1] + acceleration[2];
+    const onPhoneMotion = (event) => {
+      const { alpha, beta, gamma } = event;
+      console.log(alpha, beta, gamma);
+      console.log(event);
+      let x = alpha + gamma;
+      let y = beta;
       wireframes.forEach((wf) => {
-        wf.position.y = easeFunction(x, 720, 0.5, 1.3);
-        wf.position.x = easeFunction(y, 360, 0.5, 1.3);
+        wf.position.y = easeFunction(x % 720, 720, 1, 1.3);
+        wf.position.x = easeFunction(y % 360, 360, 1, 1.3);
       });
     };
     if (
@@ -81,7 +84,8 @@ class Three extends Component {
         navigator.userAgent
       )
     ) {
-      window.addEventListener("devicemotion", onPhoneMotion);
+      console.log("adding listener");
+      window.addEventListener("deviceorientation", onPhoneMotion);
     } else {
       window.addEventListener("mousemove", logKey);
     }

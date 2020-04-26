@@ -1,0 +1,1 @@
+the build files are copied from the build folder into this directory. its cause i stuffed up the deploy - the index.html needs to be in the root directory.
