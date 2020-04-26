@@ -1,0 +1,10 @@
+.textFlow {
+  font-family: monospace;
+  color: #8b478d8c;
+  width: min-content;
+}
+
+.textFlow p {
+  margin: 0;
+  word-spacing: 100vw;
+}
