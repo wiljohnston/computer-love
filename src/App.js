@@ -95,7 +95,7 @@ class App extends React.Component {
         </BackDrop>
         <OverLay>
           <div className="flexRow fullWidth justifyCenter">
-            <img src="/images/computer-love.gif" alt="fucc" />
+            <img src="/images/computer-love.gif" id="gif" alt="fucc" />
           </div>
         </OverLay>
       </div>
