@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import * as THREE from "three";
 class Three extends Component {
+  constructor(props) {
+    super(props);
+    this.requestMotionPermission = null;
+  }
+
   componentDidMount() {
     var width = window.innerWidth;
     var height = window.innerHeight;
@@ -87,23 +92,26 @@ class Three extends Component {
         navigator.userAgent
       )
     ) {
-      console.log("adding listener");
+      // show the enable motion button
+      // window.addEventListener("deviceorientation", onPhoneMotion);
+    } else {
+      window.addEventListener("mousemove", logKey);
+    }
+
+    this.requestMotionPermission = () => {
+      console.log("requestMotionPermission called - requesting permission");
       // this is true if there is device motion stuff
       //const isMotionPossible = window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermission === "function";
 
       // if (isMotionPossible) {
       DeviceMotionEvent.requestPermission().then((response) => {
-        console.log("response", response);
+        console.log("adding listener - response:", response);
         // do stuff here when permission is accepted
         // listener on the motion event :)
         window.addEventListener("devicemotion", onPhoneMotion, true);
       });
       // }
-
-      // window.addEventListener("deviceorientation", onPhoneMotion);
-    } else {
-      window.addEventListener("mousemove", logKey);
-    }
+    };
 
     // ---------
 
@@ -146,7 +154,12 @@ class Three extends Component {
     animate();
   }
   render() {
-    return <div className="fatCanvas" ref={(ref) => (this.mount = ref)} />;
+    return (
+      <div>
+        <div className="fatCanvas" ref={(ref) => (this.mount = ref)} />
+        <button onclick={this.requestMotionPermission}>click me</button>
+      </div>
+    );
   }
 }
 export default Three;
