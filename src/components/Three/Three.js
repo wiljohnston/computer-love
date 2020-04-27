@@ -92,7 +92,7 @@ class Three extends Component {
       //const isMotionPossible = window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermission === "function";
 
       // if (isMotionPossible) {
-      window.DeviceMotionEvent.requestPermission().then((response) => {
+      DeviceMotionEvent.requestPermission().then((response) => {
         console.log("response", response);
         // do stuff here when permission is accepted
         // listener on the motion event :)
