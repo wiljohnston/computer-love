@@ -89,18 +89,16 @@ class Three extends Component {
     ) {
       console.log("adding listener");
       // this is true if there is device motion stuff
-      const isMotionPossible =
-        window.DeviceMotionEvent &&
-        typeof window.DeviceMotionEvent.requestPermission === "function";
+      //const isMotionPossible = window.DeviceMotionEvent && typeof window.DeviceMotionEvent.requestPermission === "function";
 
-      if (isMotionPossible) {
-        window.DeviceMotionEvent.requestPermission().then((response) => {
-          console.log("response", response);
-          // do stuff here when permission is accepted
-          // listener on the motion event :)
-          window.addEventListener("devicemotion", onPhoneMotion, true);
-        });
-      }
+      // if (isMotionPossible) {
+      window.DeviceMotionEvent.requestPermission().then((response) => {
+        console.log("response", response);
+        // do stuff here when permission is accepted
+        // listener on the motion event :)
+        window.addEventListener("devicemotion", onPhoneMotion, true);
+      });
+      // }
 
       // window.addEventListener("deviceorientation", onPhoneMotion);
     } else {
