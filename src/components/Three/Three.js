@@ -69,11 +69,14 @@ class Three extends Component {
       onMouseMove(centerDistX, centerDistY);
     };
     const onPhoneMotion = (event) => {
-      const { alpha, beta, gamma } = event;
-      console.log(alpha, beta, gamma);
-      console.log(event);
-      let x = alpha + gamma;
-      let y = beta;
+      // const { alpha, beta, gamma } = event;
+      // console.log(alpha, beta, gamma);
+      // console.log(event);
+      // let x = alpha + gamma;
+      // let y = beta;
+      const { accelerationIncludingGravity } = event;
+      let x = accelerationIncludingGravity.x;
+      let y = accelerationIncludingGravity.y + accelerationIncludingGravity.z;
       wireframes.forEach((wf) => {
         wf.position.y = easeFunction(x % 720, 720, 1, 1.3);
         wf.position.x = easeFunction(y % 360, 360, 1, 1.3);
@@ -85,7 +88,21 @@ class Three extends Component {
       )
     ) {
       console.log("adding listener");
-      window.addEventListener("deviceorientation", onPhoneMotion);
+      // this is true if there is device motion stuff
+      const isMotionPossible =
+        window.DeviceMotionEvent &&
+        typeof window.DeviceMotionEvent.requestPermission === "function";
+
+      if (isMotionPossible) {
+        window.DeviceMotionEvent.requestPermission().then((response) => {
+          console.log("response", response);
+          // do stuff here when permission is accepted
+          // listener on the motion event :)
+          window.addEventListener("devicemotion", onPhoneMotion, true);
+        });
+      }
+
+      // window.addEventListener("deviceorientation", onPhoneMotion);
     } else {
       window.addEventListener("mousemove", logKey);
     }
